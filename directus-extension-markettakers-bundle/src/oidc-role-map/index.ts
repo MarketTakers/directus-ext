@@ -2,7 +2,7 @@ import { createError } from '@directus/errors';
 
 const NoRoleError = createError('FORBIDDEN', "You don't have any roles", 403);
 
-async function fireHook(payload, userInfo, services, schemaFunctor) {
+async function fireHook(payload: any, userInfo: { [x: string]: any; }, services: { RolesService: new (arg0: { schema: any; }) => any; }, schemaFunctor: () => any) {
   const RolesService = new services.RolesService({
     schema: await schemaFunctor(),
   });
@@ -32,8 +32,8 @@ async function fireHook(payload, userInfo, services, schemaFunctor) {
 
 }
 
-export default ({ filter }, { services, getSchema }) => {
-  filter("auth.update", async (payload, { providerPayload }, context) => {
+export default ({ filter }: any, { services, getSchema }: any) => {
+  filter("auth.update", async (payload: any, { providerPayload }: any, _: any) => {
     return await fireHook(
       payload,
       providerPayload.userInfo,
@@ -42,7 +42,7 @@ export default ({ filter }, { services, getSchema }) => {
     );
   });
 
-  filter("auth.create", async (payload, meta, context) => {
+  filter("auth.create", async (payload: any, meta: { providerPayload: { userInfo: { [x: string]: any; }; }; }, context: any) => {
     console.log("firing create: ", [payload, meta, context]);
     console.log("Provider payload: ", meta.providerPayload.userInfo);
     return await fireHook(

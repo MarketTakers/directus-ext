@@ -1,38 +1,51 @@
 {
-	"name": "steam",
+	"name": "markettakers",
 	"description": "Please enter a description for your extension",
 	"icon": "extension",
 	"version": "1.0.0",
 	"keywords": [
 		"directus",
 		"directus-extension",
-		"directus-extension-endpoint"
+		"directus-extension-bundle"
 	],
 	"type": "module",
 	"files": [
 		"dist"
 	],
 	"directus:extension": {
-		"type": "endpoint",
-		"path": "dist/index.js",
-		"source": "src/index.ts",
+		"type": "bundle",
+		"path": {
+			"app": "dist/app.js",
+			"api": "dist/api.js"
+		},
+		"entries": [
+			{
+				"type": "hook",
+				"name": "oidc-role-map",
+				"source": "src/oidc-role-map/index.ts"
+			},
+			{
+				"type": "endpoint",
+				"name": "steam",
+				"source": "src/steam/index.ts"
+			}
+		],
 		"host": "^10.10.0"
 	},
 	"scripts": {
 		"build": "directus-extension build",
 		"dev": "directus-extension build -w --no-minify",
 		"link": "directus-extension link",
-		"validate": "directus-extension validate"
+		"validate": "directus-extension validate",
+		"add": "directus-extension add"
 	},
 	"devDependencies": {
-		"@directus/extensions-sdk": "16.0.0",
-		"@types/node": "^24.2.1",
+		"@directus/extensions-sdk": "^16.0.1",
+		"@types/node": "^24.3.0",
 		"typescript": "^5.9.2"
 	},
 	"dependencies": {
-		"@directus/constants": "^13.0.2",
 		"@directus/errors": "^2.0.3",
-		"@directus/types": "^13.2.1",
 		"express": "^4.21.2",
 		"steam-totp": "^2.1.2"
 	}
