@@ -226,7 +226,7 @@ async function generateRefreshToken(
    */
   const refreshToken = await NanoidHelper.getNanoid(64);
   const msRefreshTokenTTL: number =
-    ms(EnvVariableHelper.getRefreshTTL() as StringValue) || 0;
+    ms((EnvVariableHelper.getRefreshTTL() ?? "0") as StringValue) || 0;
   const refreshTokenExpiration = new Date(Date.now() + msRefreshTokenTTL);
 
   await knex("directus_sessions").insert({
