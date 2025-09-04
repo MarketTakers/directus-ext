@@ -10,6 +10,8 @@ import { createKv, KvLocal, KvRedis } from "@directus/memory";
 import { EnvVariableHelper } from "../helpers/EnvVariableHelper";
 import { NanoidHelper } from "../helpers/NanoidHelper";
 
+const EndpointTopName = "proof-key-code-exchange";
+
 const env = process.env;
 const PUBLIC_URL = env.PUBLIC_URL || ""; // e.g. http://rocket-meals.de/rocket-meals/api or empty string
 
@@ -240,7 +242,7 @@ async function generateRefreshToken(
   return refreshToken;
 }
 
-const EndpointTopName = "proof-key-code-exchange";
+
 
 function getEnvVarNameAuthProviderRedirectAllowList(provider: string) {
   const providerCaps = provider.toUpperCase(); // makes from "google" --> "GOOGLE"

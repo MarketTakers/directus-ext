@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+import { StringHelper } from './StringHelper';
 
 export enum Weekday {
   MONDAY = 'MONDAY',
