@@ -598,7 +598,7 @@ export default defineEndpoint({
         let generatedChallenge = crypto
           .createHash("sha256")
           .update(code_verifier_app)
-          .digest("base64url");
+          .digest("hex");
 
         if (
           storedCodeChallenge.code_challenge_method ===
